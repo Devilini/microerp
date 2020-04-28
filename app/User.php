@@ -5,6 +5,7 @@ namespace App;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Hash;
 
 class User extends Authenticatable
 {
@@ -16,7 +17,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'email', 'is_admin', 'transport_id'
     ];
 
     /**
@@ -36,4 +37,31 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function transport()
+    {
+        return $this->belongsTo(Transport::class);
+    }
+
+    public function generatePassword($password)
+    {
+        if($password != null)
+        {
+            $this->password = Hash::make($password);
+        }
+    }
+
+    public function add($fields)
+    {
+        $this->fill($fields);
+        $this->generatePassword($fields['password']);
+        $this->save();
+    }
+
+    public function edit($fields)
+    {
+        $this->fill($fields);
+        $this->generatePassword($fields['password']);
+        $this->update();
+    }
 }

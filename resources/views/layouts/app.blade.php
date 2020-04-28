@@ -26,6 +26,9 @@
                 <a class="navbar-brand" href="{{ url('/') }}">
                     {{ config('app.name', 'Laravel') }}
                 </a>
+                <router-link class="navbar-link" to="/transport">
+                    Транспорт
+                </router-link>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -49,6 +52,15 @@
                                 </li>
                             @endif
                         @else
+                            @if (Auth::user()->is_admin)
+                                <li class="nav-item">
+                                    <a class="nav-link" href="/users">Пользователи</a>
+                                </li>
+                                @else
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="/my">Личный кабинет</a>
+                                    </li>
+                            @endif
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     {{ Auth::user()->name }} <span class="caret"></span>
@@ -71,7 +83,7 @@
                 </div>
             </div>
         </nav>
-
+        <router-view></router-view>
         <main class="py-4">
             @yield('content')
         </main>
