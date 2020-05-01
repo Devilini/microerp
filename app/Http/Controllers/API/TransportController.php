@@ -3,7 +3,8 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
-use App\User;
+use App\Transport;
+use App\TransportType;
 use Illuminate\Http\Request;
 
 class TransportController extends Controller
@@ -15,7 +16,15 @@ class TransportController extends Controller
      */
     public function index()
     {
-        return User::all();
+        return Transport::with('type')->paginate(15);
+    }
+
+    public function create()
+    {
+        $transport_types = TransportType::all();
+        $status = Transport::getEnumValues('transports', 'status');
+
+        return ['transport_types' => $transport_types,'status' => $status];
     }
 
     /**
@@ -26,7 +35,10 @@ class TransportController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        Transport::validate($request);
+        $transport = new Transport;
+
+        return $transport->add($request->all());
     }
 
     /**
@@ -37,7 +49,11 @@ class TransportController extends Controller
      */
     public function show($id)
     {
-        //
+        $transport = Transport::find($id);
+        $transport_types = TransportType::all();
+        $status = Transport::getEnumValues('transports', 'status');
+
+        return ['transport' =>$transport, 'transport_types' => $transport_types, 'status' => $status];
     }
 
     /**
@@ -49,7 +65,9 @@ class TransportController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        Transport::validate($request);
+        $transport = Transport::find($id);
+        $transport->edit($request->all());
     }
 
     /**
@@ -60,6 +78,8 @@ class TransportController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $transport = Transport::findOrFail($id);
+        $transport->delete();
     }
+
 }

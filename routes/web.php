@@ -16,17 +16,15 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/transport', function () {
+    return view('transport');
+});
+
 Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/profile', 'UserController@showProfile')->name('profile');
 Auth::routes();
-//Route::group(['middleware'	=>	'admin'], function() {
-//    Route::get('/users', 'UserController@index')->name('users');
-//    Route::get('/user/edit/{id}', 'UserController@edit')->name('user.edit');
-//    Route::post('/user/update/{id}', 'UserController@update')->name('user.update');
-//    Route::get('/user/delete/{id}', 'UserController@delete')->name('user.delete');
-//    Route::get('/user/create', 'UserController@create')->name('user.create');
-//    Route::post('/user/store', 'UserController@store')->name('user.store');
-//    Route::delete('/user/delete/{id}', 'UserController@delete')->name('user.delete');
-//});
-Route::group(['middleware'	=>	'admin'], function() {
+
+Route::group(['middleware' => 'admin'], function () {
     Route::resource('/users', 'UserController');
 });

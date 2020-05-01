@@ -26,9 +26,18 @@
                 <a class="navbar-brand" href="{{ url('/') }}">
                     {{ config('app.name', 'Laravel') }}
                 </a>
-                <router-link class="navbar-link" to="/transport">
-                    Транспорт
-                </router-link>
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/home">
+                            Главная
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/transport">
+                            Транспорт
+                        </a>
+                    </li>
+                </ul>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -58,7 +67,7 @@
                                 </li>
                                 @else
                                     <li class="nav-item">
-                                        <a class="nav-link" href="/my">Личный кабинет</a>
+                                        <a class="nav-link" href="/profile">Личный кабинет</a>
                                     </li>
                             @endif
                             <li class="nav-item dropdown">
@@ -83,7 +92,6 @@
                 </div>
             </div>
         </nav>
-        <router-view></router-view>
         <main class="py-4">
             @yield('content')
         </main>

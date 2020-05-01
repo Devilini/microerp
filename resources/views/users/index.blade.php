@@ -6,8 +6,11 @@
         <div class="col-md-12">
 
             @if (Session::has('success'))
-                <div class="alert alert-success">
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
                     {!! Session::get('success') !!}
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
                 </div>
             @endif
 
@@ -20,6 +23,7 @@
                     <th>Email</th>
                     <th>Администратор</th>
                     <th>Транспорт</th>
+                    <th>Дата регистрации</th>
                     <th></th>
                     </thead>
 
@@ -31,6 +35,7 @@
                             <td>{{$user->email }}</td>
                             <td>{{ !empty($user->is_admin)?'yes':'no' }}</td>
                             <td>{{isset($user->transport->name)?$user->transport->name:'нет' }}</td>
+                            <td>{{$user->created_at}}</td>
                             <td>
                                 <a href="{{ route('users.edit', $user->id)}}" class="btn btn-outline-primary"><i class="fas fa-user-edit"></i></a>
                                 <form action="{{ route('users.destroy', $user->id)}}" style="display: inline" method="Post">

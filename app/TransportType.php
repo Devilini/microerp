@@ -9,6 +9,6 @@ class TransportType extends Model
 
     public function transports()
     {
-        return $this->hasMany(Transport::class);
+        return $this->hasMany(Transport::class,'type_id','id');
     }
 }

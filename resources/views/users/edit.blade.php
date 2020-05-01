@@ -15,11 +15,11 @@
             <form action="{{route('users.update', $user->id)}}" method="Post">
                 @csrf @method('PUT')
                 <div class="form-group">
-                    <label for="name">Имя</label>
+                    <label for="name">Имя*</label>
                     <input type="text" class="form-control" id="name" name="name" value="{{$user->name}}">
                 </div>
                 <div class="form-group">
-                    <label for="email">Email</label>
+                    <label for="email">Email*</label>
                     <input type="email" class="form-control" id="email"
                            placeholder="name@example.com" name="email" value="{{$user->email}}">
                 </div>

@@ -18,11 +18,5 @@ use Illuminate\Support\Facades\Route;
 //    return $request->user();
 //});
 
-//Route::prefix('/transport')->group(function () {
-//    Route::get('/', ['uses' => 'TransportController@getTransport']);
-//    Route::post('/', ['uses' => 'TransportController@createTransport']);
-//    Route::put('/{id}', ['uses' => 'TransportController@updateTransport'])->where(['id' => '[0-9+]']);
-//    Route::delete('/{id}', ['uses' => 'TransportController@deleteTransport'])->where(['id' => '[0-9+]']);
-//});
-
+Route::get('/transport/create', 'API\TransportController@create');
 Route::apiResources(['transport' => 'API\TransportController']);

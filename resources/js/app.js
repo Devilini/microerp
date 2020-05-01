@@ -8,37 +8,33 @@ require('./bootstrap');
 
 window.Vue = require('vue');
 
-import VueRouter from 'vue-router'
-Vue.use(VueRouter);
+import router from "./router";
+import Transport from './components/Transport';
+import {Form, HasError, AlertError, AlertErrors} from 'vform';
+import Swal from 'sweetalert2';
 
-const routes = [
-    { path: '/home', component:  require('./components/ExampleComponent.vue')},
-    { path: '/transport', component:  require('./components/Transport.vue')}
-];
-const router = new VueRouter({
-    mode: 'history',
-    routes
+window.swal = Swal;
+
+const toast = swal.mixin({
+    toast: true,
+    position: 'top-end',
+    showConfirmButton: false,
+    timer: 3500,
+    timerProgressBar: true,
+    onOpen: (toast) => {
+        toast.addEventListener('mouseenter', swal.stopTimer);
+        toast.addEventListener('mouseleave', swal.resumeTimer);
+    }
 });
-/**
- * The following block of code may be used to automatically register your
- * Vue components. It will recursively scan this directory for the Vue
- * components and automatically register them with their "basename".
- *
- * Eg. ./components/ExampleComponent.vue -> <example-component></example-component>
- */
 
-// const files = require.context('./', true, /\.vue$/i)
-// files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
+window.toast = toast;
+window.Form = Form;
 
-Vue.component('example-component', require('./components/ExampleComponent.vue').default);
-Vue.component('transport', require('./components/Transport.vue').default);
-
-/**
- * Next, we will create a fresh Vue application instance and attach it to
- * the page. Then, you may begin adding components to this application
- * or customize the JavaScript scaffolding to fit your unique needs.
- */
+Vue.component('Transport', Transport);
+Vue.component(HasError.name, HasError);
+Vue.component(AlertError.name, AlertError);
+Vue.component(AlertErrors.name, AlertErrors);
 
 const app = new Vue({
-    router
+    router,
 }).$mount('#app');
