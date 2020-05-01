@@ -96,7 +96,7 @@
                 });
             },
             loadTransportForUpdate() {
-                this.form.get('/api/transport/' + this.$route.params.id ).then(({data}) => {
+                axios.get('/api/transport/' + this.$route.params.id ).then(({data}) => {
                     this.form.fill(data.transport);
                     this.transport_types = data.transport_types;
                     this.status = data.status;

@@ -2,6 +2,7 @@ import Vue from "vue";
 import Router from "vue-router";
 import TransportView from '../components/TransportView.vue';
 import TransportForm from '../components/TransportForm.vue';
+import Developer from '../components/Developer.vue';
 Vue.use(Router);
 
 export default new Router({
@@ -19,6 +20,10 @@ export default new Router({
             path: '/transport/edit/:id',
             component: TransportForm,
             name: 'edit'
+        },
+        {
+            path: '/developer',
+            component: Developer
         }
     ]
 });

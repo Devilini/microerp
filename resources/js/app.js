@@ -10,6 +10,7 @@ window.Vue = require('vue');
 
 import router from "./router";
 import Transport from './components/Transport';
+import Developer from './components/Developer';
 import {Form, HasError, AlertError, AlertErrors} from 'vform';
 import Swal from 'sweetalert2';
 
@@ -31,10 +32,24 @@ window.toast = toast;
 window.Form = Form;
 
 Vue.component('Transport', Transport);
+Vue.component('Developer', Developer);
 Vue.component(HasError.name, HasError);
 Vue.component(AlertError.name, AlertError);
 Vue.component(AlertErrors.name, AlertErrors);
+Vue.component(
+    'passport-clients',
+    require('./components/passport/Clients.vue').default
+);
 
+Vue.component(
+    'passport-authorized-clients',
+    require('./components/passport/AuthorizedClients.vue').default
+);
+
+Vue.component(
+    'passport-personal-access-tokens',
+    require('./components/passport/PersonalAccessTokens.vue').default
+);
 const app = new Vue({
     router,
 }).$mount('#app');

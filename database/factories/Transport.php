@@ -17,13 +17,12 @@ use Illuminate\Support\Str;
 |
 */
 
-$factory->define(User::class, function (Faker $faker) {
+$factory->define(\App\Transport::class, function (Faker $faker) {
     return [
-        'name' => $faker->name,
-        'email' => $faker->unique()->safeEmail,
-        'password' => bcrypt(12345678),
-        'transport_id' => function () {
-            return factory(App\Transport::class)->create()->id;
-        }
+        'name' => $faker->text(10),
+        'color' => $faker->colorName,
+        'year' => $faker->year,
+        'status' => 'активная',
+        'type_id' => rand(1, 3)
     ];
 });
